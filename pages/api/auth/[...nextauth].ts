@@ -2,6 +2,10 @@ import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
 import prismadb from '@/lib/prismadb'
 import {compare } from 'bcrypt'
+import GoogleProvider from "next-auth/providers/google"
+import GitHubProvider from "next-auth/providers/github";
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
+
 
 export default NextAuth({
   providers: [
@@ -44,12 +48,28 @@ export default NextAuth({
 
         return user
       }
+    }), 
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+      // profile(profile) {
+      //   return {
+      //     // Return all the profile information you need.
+      //     // The only truly required field is `id`
+      //     // to be able identify the account when added to a database
+      //   }
+      // },
+    }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID || '',
+      clientSecret: process.env.GITHUB_SECRET || '',
     })
   ],
   pages: {
     signIn: '/auth',
   },
   debug: process.env.NODE_ENV === 'development',
+  adapter: PrismaAdapter(prismadb),
   session: {
     strategy: 'jwt'
   },
