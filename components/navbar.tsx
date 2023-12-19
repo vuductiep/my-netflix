@@ -3,6 +3,7 @@ import MobileMenu from "./MobileMenu";
 import NavbarItem from "./NavbarItem";
 import { BsChevronDown, BsSearch, BsBell } from 'react-icons/bs'
 import AccountMenu from "./AccountMenu";
+import {Icons} from "@/components/Icons";
 
 const TOP_OFFSET = 66
 
@@ -43,7 +44,8 @@ const Navbar = () => {
           ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}
           `}
       >
-        <img src="/images/logo.png" alt="" className="h-4 lg:h-7" />
+        {/*<img src="/images/logo.png" alt="" className="h-4 lg:h-7" />*/}
+        <Icons.logo className="h-4 lg:h-7" />
         <div
           className="flex-row ml-8 gap-7 hidden lg:flex"
         >
